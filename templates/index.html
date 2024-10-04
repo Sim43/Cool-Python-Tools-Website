@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Cool Python Tools</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico')}}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#page-top">Cool Python Tools</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive"></div>
+            </div>
+        </nav>
+
+        <!-- Header-->
+        <header class="masthead text-center text-white">
+            <div class="masthead-content">
+                <div class="container px-5">
+                    <h1 class="masthead-heading mb-0">Image Color Extract</h1>
+                    <h2 class="masthead-subheading mb-0">Unveil the Hidden Palette of Every Image</h2>
+                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Extract Colors!</a>
+                </div>
+            </div>
+            <div class="bg-circle-1 bg-circle"></div>
+            <div class="bg-circle-2 bg-circle"></div>
+            <div class="bg-circle-3 bg-circle"></div>
+            <div class="bg-circle-4 bg-circle"></div>
+        </header>
+
+        <!-- Content section 1-->
+        <section id="scroll">
+            <div class="container px-5 my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <!-- Image -->
+                        <div class="mb-4">
+                            <img class="img-fluid rounded" src="{{ image_path }}" alt="Uploaded Image" />
+                        </div>
+                        
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p class="flash">{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <!-- Form -->
+                        <h3>Upload New File</h3>
+                        <form method="post" enctype="multipart/form-data" class="text-start">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Choose Image File:</label>
+                                <input type="file" class="form-control" name="file" id="file" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="n_colors" class="form-label">Number of Colors:</label>
+                                <input type="number" class="form-control" name="n_colors" id="n_colors" min="1" value="10" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="delta" class="form-label">Delta (Color Grouping Tolerance):</label>
+                                <input type="number" class="form-control" name="delta" id="delta" min="1" value="16" required>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Run</button>
+                        </form>
+
+                        <!-- Colors Table -->
+                        <div class="mt-5">
+                            <h4>Extracted Colors</h4>
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th style="width: 33%;">Color</th>
+                                        <th style="width: 33%;">Hex Code</th>
+                                        <th style="width: 33%;">Percentage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for color in colors %}
+                                    <tr>
+                                        <!-- Color Block -->
+                                        <td>
+                                            <div style="background-color: {{ color }}; width: 150px; height: 50px; border: 1px solid black;"></div>
+                                        </td>
+                                        <!-- Hex Code -->
+                                        <td>{{ color }}</td>
+                                        <!-- Percentage -->
+                                        <td>{{ colors[color] }}%</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>                                                                                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer-->
+        <footer class="py-5 bg-black">
+            <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Cool Python Tools 2024</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+    </body>
+</html>
