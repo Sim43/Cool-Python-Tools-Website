@@ -23,6 +23,7 @@ def delete_uploaded_files():
     """Delete all files in the upload folder."""
     for filename in os.listdir(app.config['UPLOAD_FOLDER']):
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
         try:
             if os.path.isfile(file_path):
                 os.remove(file_path)
@@ -62,4 +63,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=False, port=5001)
