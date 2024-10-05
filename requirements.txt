@@ -1,4 +1,3 @@
-action-msgs==1.2.1
 action-tutorials-interfaces==0.20.5
 action-tutorials-py==0.20.5
 actionlib-msgs==4.2.4
