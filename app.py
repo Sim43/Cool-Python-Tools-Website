@@ -4,12 +4,16 @@ from color_generator import generate_colors
 import os
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'static/assets/uploads'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+if os.getenv('VERCEL'):
+    UPLOAD_FOLDER = '/tmp'
+else:
+    UPLOAD_FOLDER = 'static/assets/uploads'
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 Bootstrap5(app)
 
