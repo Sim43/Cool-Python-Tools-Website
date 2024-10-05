@@ -47,7 +47,13 @@
                     <div class="col-lg-8 text-center">
                         <!-- Image -->
                         <div class="mb-4">
-                            <img class="img-fluid rounded" src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" />
+                            <img class="img-fluid rounded" 
+                            {% if flag %}
+                                src="{{ url_for('uploaded_file', filename=filename) }}"
+                            {% else %}
+                                src="{{ image_path }}"
+                            {% endif %}
+                            alt="Uploaded Image"/>
                         </div>
                         
                         {% with messages = get_flashed_messages() %}

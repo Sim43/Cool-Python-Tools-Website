@@ -46,6 +46,8 @@ def home():
     image_path = 'static/assets/img/sample.jpg'
     n_colors = 10
     delta = 16
+    flag = 0
+    filename = 'none'
 
     if request.method == 'POST':
         # Check if the post request has the file part
@@ -65,10 +67,11 @@ def home():
             filename = secure_filename(file.filename)
             image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(image_path)
+            flag = 1
 
     colors = generate_colors(image_path, n_colors, delta)
     print(colors)
-    return render_template("index.html", colors=colors, filename=filename)
+    return render_template("index.html", colors=colors, filename=filename, flag=flag, image_path = image_path)
 
 
 if __name__ == "__main__":
