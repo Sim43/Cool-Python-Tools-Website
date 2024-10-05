@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
 from color_generator import generate_colors
 import os
+from flask import send_file
 from werkzeug.utils import secure_filename
 
 
@@ -21,6 +22,10 @@ Bootstrap5(app)
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 
 def delete_uploaded_files():
@@ -63,7 +68,7 @@ def home():
 
     colors = generate_colors(image_path, n_colors, delta)
     print(colors)
-    return render_template("index.html", colors=colors, image_path=image_path)
+    return render_template("index.html", colors=colors, filename=filename)
 
 
 if __name__ == "__main__":
