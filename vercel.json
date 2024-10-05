@@ -1,5 +1,7 @@
 {
-    "installCommand": "pip3.12 install -r requirements.txt",
+    "env": {
+    "PYTHON_VERSION": "3.10"
+    },
     "devCommand": "uvicorn api.app:app --host 0.0.0.0 --port 3000",
     "builds": [
       {
@@ -13,5 +15,5 @@
         "dest": "app.py"
       }
     ]
-  }
+}
   
